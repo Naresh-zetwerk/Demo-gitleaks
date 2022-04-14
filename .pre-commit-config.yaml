@@ -4,3 +4,28 @@
   entry: gitleaks protect --verbose --redact --staged
   language: golang
   pass_filenames: false
+  
+  hooks:
+  - &custom
+    id: custom
+    name: custom
+    entry: custom
+    language: python
+    types: [python]
+
+repos:
+  - repo: local
+    hooks:
+      - <<: *custom
+        args: ['some-arg']
+        exclude_types: ['something']
+        language_version: python3.5
+      - <<: *custom
+        args: ['something']
+        exclude_types: ['something-else']
+        exclude: something
+        files: something
+      - <<: *custom
+        args: ['something-else']
+        exclude: something-else
+        files: something-else
